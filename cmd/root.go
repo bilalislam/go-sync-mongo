@@ -78,6 +78,7 @@ func init() {
 	viper.BindPFlag("src-ssl", RootCmd.PersistentFlags().Lookup("src-ssl"))
 	viper.BindPFlag("dst", RootCmd.PersistentFlags().Lookup("dst"))
 	viper.BindPFlag("dst-db", RootCmd.PersistentFlags().Lookup("dst-db"))
+	viper.BindPFlag("dst-collections", RootCmd.PersistentFlags().Lookup("dst-collections"))
 	viper.BindPFlag("dst-username", RootCmd.PersistentFlags().Lookup("dst-username"))
 	viper.BindPFlag("dst-password", RootCmd.PersistentFlags().Lookup("dst-password"))
 	viper.BindPFlag("dst-ssl", RootCmd.PersistentFlags().Lookup("dst-ssl"))

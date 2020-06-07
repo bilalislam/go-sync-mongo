@@ -1,13 +1,12 @@
 package cmd
 
 import (
+	"../db"
 	"fmt"
-	s "strings"
-
-	db "../db"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2"
+	s "strings"
 )
 
 var syncCmd = &cobra.Command{
@@ -38,7 +37,7 @@ var syncCmd = &cobra.Command{
 				Password: viper.GetString("dst-password"),
 			},
 			Database:    viper.GetString("dst-db"),
-			Collections: make([]string, 0),
+			Collections: s.Split(viper.GetString("dst-collections"), ","),
 		}
 		dst, err := db.NewConnection(dstConfig)
 		if err != nil {

@@ -5,16 +5,17 @@ import (
 	"os"
 	"strconv"
 
-	db "../db"
+	"../db"
 	"github.com/olekukonko/tablewriter"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
+	s "strings"
 )
 
 type LastRecord struct {
-	ID bson.ObjectId `bson:"_id"`
+	ID bson.Binary `bson:"_id"`
 }
 
 // statusCmd represents the status command
@@ -30,6 +31,8 @@ var statusCmd = &cobra.Command{
 				Username: viper.GetString("src-username"),
 				Password: viper.GetString("src-password"),
 			},
+			Database:    viper.GetString("src-db"),
+			Collections: s.Split(viper.GetString("src-collections"), ","),
 		}
 		src, err := db.NewConnection(srcConfig)
 		if err != nil {
@@ -43,6 +46,8 @@ var statusCmd = &cobra.Command{
 				Username: viper.GetString("dst-username"),
 				Password: viper.GetString("dst-password"),
 			},
+			Database:    viper.GetString("dst-db"),
+			Collections: s.Split(viper.GetString("dst-collections"), ","),
 		}
 		dst, err := db.NewConnection(dstConfig)
 		if err != nil {
